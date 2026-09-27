@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Surprise 💗</title>
+
+    <link rel="stylesheet" href="style1.css">
+</head>
+
+<body>
+
+    <div class="background-hearts">
+        <span>♡</span>
+        <span>♡</span>
+        <span>♡</span>
+        <span>♡</span>
+        <span>♡</span>
+        <span>♡</span>
+        <span>♡</span>
+        <span>♡</span>
+    </div>
+
+    <main class="container">
+
+        <!-- ENVELOPE -->
+        <div class="envelope-wrapper" id="envelopeWrapper">
+
+            <div class="envelope" id="envelope">
+
+                <div class="envelope-back"></div>
+
+                <div class="letter">
+
+                    <div class="message" id="message">
+                        <p>Happy Birthday,❤️</p>
+                        <p>This is a little surprise for you,</p>
+                        <p>because today is your special day.</p>
+                        <p>I hope this little surprise makes you smile.</p>
+                        <p>You deserve a beautiful year full of happiness.</p>
+                        <p>And maybe this is just the beginning of something nice… ✨</p>
+                    </div>
+
+                    <button id="continueBtn">
+                        Continue ♡
+                    </button>
+
+                </div>
+
+                <div class="envelope-front"></div>
+
+                <button class="heart" id="heartBtn">
+                    ❤️
+                </button>
+
+            </div>
+        </div>
+<audio id="bgMusic" loop>
+  <source src="Tems - Me & U (Official Video).mp3" type="audio/mpeg">
+</audio>
+
+        <!-- CODE SECTION -->
+        <section class="code-section" id="codeSection">
+
+            <div class="code-card">
+
+                <div class="small-heart">♡</div>
+
+                <h2>Your Secret Code</h2>
+
+                <p>Enter the 4-digit code to continue</p>
+
+                <div class="code-boxes">
+
+                    <input type="text" maxlength="1" class="code-input">
+                    <input type="text" maxlength="1" class="code-input">
+                    <input type="text" maxlength="1" class="code-input">
+                    <input type="text" maxlength="1" class="code-input">
+
+                </div>
+
+                <button class="open-btn" id="openBtn">
+                    Open My Surprise
+                </button>
+
+                <p class="error" id="error">
+                    Wrong code, try again ♡
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>

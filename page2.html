@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Memories ❤️</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            color: white;
+            font-family: "Poppins", Arial, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* =========================
+           FLOATING HEARTS
+        ========================= */
+
+        .hearts {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .heart {
+            position: absolute;
+            bottom: -50px;
+            color: #ff5c9a;
+            font-size: 20px;
+            opacity: 0.7;
+            animation: floatHeart linear infinite;
+            filter: drop-shadow(0 0 8px rgba(255, 92, 154, 0.7));
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: translateY(-50vh) rotate(180deg);
+            }
+
+            100% {
+                transform: translateY(-115vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 60px 25px 100px;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 38px;
+            font-weight: 500;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #aaa;
+            font-size: 15px;
+            margin-bottom: 50px;
+        }
+
+        .title span {
+            color: #ff5c9a;
+        }
+
+        /* =========================
+           GALLERY
+        ========================= */
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+            margin-bottom: 60px;
+        }
+
+        .memory {
+            position: relative;
+            border-radius: 18px;
+            overflow: hidden;
+            background: #111;
+            border: 1px solid rgba(255, 92, 154, 0.15);
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5);
+            transition: 0.4s ease;
+        }
+
+        .memory:hover {
+            transform: translateY(-7px);
+            border-color: rgba(255, 92, 154, 0.5);
+            box-shadow: 0 15px 40px rgba(255, 92, 154, 0.12);
+        }
+
+        .memory img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            display: block;
+            cursor: pointer;
+            transition: 0.4s ease;
+        }
+
+        .memory img:hover {
+            transform: scale(1.03);
+        }
+
+        /* =========================
+           VIDEOS
+        ========================= */
+
+        .video-title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 400;
+            margin: 70px 0 30px;
+        }
+
+        .video-title span {
+            color: #ff5c9a;
+        }
+
+        .videos {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 70px;
+        }
+
+        .video-card {
+            background: #111;
+            padding: 10px;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 92, 154, 0.15);
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5);
+        }
+
+        .video-card video {
+            width: 100%;
+            display: block;
+            border-radius: 12px;
+            max-height: 550px;
+            background: black;
+        }
+
+        /* =========================
+           CONTINUE BUTTON
+        ========================= */
+
+        .continue-area {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .continue-btn {
+            border: none;
+            outline: none;
+            padding: 15px 45px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #ff5c9a, #ff8ab7);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            box-shadow: 0 0 25px rgba(255, 92, 154, 0.3);
+            transition: 0.3s ease;
+        }
+
+        .continue-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 35px rgba(255, 92, 154, 0.55);
+        }
+
+        /* =========================
+           CODE OVERLAY
+        ========================= */
+
+        .code-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            padding: 20px;
+        }
+
+        .code-box {
+            width: 100%;
+            max-width: 430px;
+            background: #111;
+            border: 1px solid rgba(255, 92, 154, 0.35);
+            border-radius: 25px;
+            padding: 40px 25px;
+            text-align: center;
+            box-shadow: 0 0 60px rgba(255, 92, 154, 0.15);
+            animation: popup 0.4s ease;
+        }
+
+        @keyframes popup {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .code-box h2 {
+            font-size: 25px;
+            font-weight: 400;
+            margin-bottom: 10px;
+        }
+
+        .code-box h2 span {
+            color: #ff5c9a;
+        }
+
+        .code-box p {
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .code-inputs {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .code-inputs input {
+            width: 55px;
+            height: 65px;
+            background: #080808;
+            border: 1px solid #333;
+            border-radius: 12px;
+            color: white;
+            text-align: center;
+            font-size: 25px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .code-inputs input:focus {
+            border-color: #ff5c9a;
+            box-shadow: 0 0 15px rgba(255, 92, 154, 0.2);
+        }
+
+        .error {
+            color: #ff6b9f;
+            font-size: 13px;
+            min-height: 20px;
+        }
+
+        .shake {
+            animation: shake 0.35s;
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            50% { transform: translateX(8px); }
+            75% { transform: translateX(-8px); }
+            100% { transform: translateX(0); }
+        }
+
+        /* =========================
+           IMAGE LIGHTBOX
+        ========================= */
+
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.94);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+            padding: 20px;
+        }
+
+        .lightbox img {
+            max-width: 95%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 0 50px rgba(255, 92, 154, 0.15);
+        }
+
+        .close-lightbox {
+            position: absolute;
+            top: 25px;
+            right: 30px;
+            font-size: 35px;
+            color: white;
+            cursor: pointer;
+            font-weight: 200;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 850px) {
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .videos {
+                grid-template-columns: 1fr;
+            }
+
+            .memory img {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .container {
+                padding: 40px 15px 80px;
+            }
+
+            .title {
+                font-size: 30px;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .memory img {
+                height: 420px;
+            }
+
+            .code-inputs input {
+                width: 52px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <audio id="bgMusic" loop preload="auto">
+        <source src="Tems - Me & U (Official Video).mp3" type="audio/mpeg">
+    </audio>
+
+
+    <!-- =========================
+         MOVING HEARTS
+    ========================== -->
+
+    <div class="hearts" id="hearts"></div>
+
+
+    <!-- =========================
+         MAIN PAGE
+    ========================== -->
+
+    <main class="container">
+
+        <h1 class="title">
+            A Few <span>Memories</span> ✨
+        </h1>
+
+        <p class="subtitle">
+            Some moments I wanted you to see on your special day...
+        </p>
+
+
+        <!-- =========================
+             PHOTOS
+        ========================== -->
+
+        <div class="gallery">
+
+            <!-- PHOTO 1 -->
+            <div class="memory">
+                <img src="PH4.jpeg" alt="Memory 1">
+            </div>
+
+            <!-- PHOTO 2 -->
+            <div class="memory">
+                <img src="PH3.jpeg" alt="Memory 2">
+            </div>
+
+            <!-- PHOTO 3 -->
+            <div class="memory">
+                <img src="PH12.jpeg" alt="Memory 3">
+            </div>
+
+            <!-- PHOTO 4 -->
+            <div class="memory">
+                <img src="PH1.jpeg" alt="Memory 4">
+            </div>
+
+            <!-- PHOTO 5 -->
+            <div class="memory">
+                <img src="PH6.jpeg" alt="Memory 5">
+            </div>
+
+            <!-- PHOTO 6 -->
+            <div class="memory">
+                <img src="PH11.jpeg" alt="Memory 6">
+            </div>
+
+            <!-- PHOTO 7 -->
+            <div class="memory">
+                <img src="PH7.jpeg" alt="Memory 7">
+            </div>
+
+            <!-- PHOTO 8 -->
+            <div class="memory">
+                <img src="PH5.jpeg" alt="Memory 8">
+            </div>
+
+            <!-- PHOTO 9 -->
+            <div class="memory">
+                <img src="PH2.jpeg" alt="Memory 9">
+            </div>
+
+            <!-- PHOTO 10 -->
+            <div class="memory">
+                <img src="PH10.jpeg" alt="Memory 10">
+            </div>
+
+            <!-- PHOTO 11 -->
+            <div class="memory">
+                <img src="PH9.jpeg" alt="Memory 11">
+            </div>
+
+            <!-- PHOTO 12 -->
+            <div class="memory">
+                <img src="PH8.jpeg" alt="Memory 12">
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             VIDEOS
+        ========================== -->
+
+        <h2 class="video-title">
+            Little <span>Moments</span> 🎥
+        </h2>
+
+        <div class="videos">
+
+            <div class="video-card">
+                <video controls playsinline>
+                    <source src="VD1.mp4" type="video/mp4">
+                    Your browser does not support video.
+                </video>
+            </div>
+
+            <div class="video-card">
+                <video controls playsinline>
+                    <source src="VD2.mp4" type="video/mp4">
+                    Your browser does not support video.
+                </video>
+            </div>
+
+            <div class="video-card">
+                <video controls playsinline>
+                    <source src="VD3.mp4" type="video/mp4">
+                    Your browser does not support video.
+                </video>
+            </div>
+
+            <div class="video-card">
+                <video controls playsinline>
+                    <source src="VD4.mp4" type="video/mp4">
+                    Your browser does not support video.
+                </video>
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             CONTINUE
+        ========================== -->
+
+        <div class="continue-area">
+
+            <button class="continue-btn" onclick="openCode()">
+                Continue ♡
+            </button>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================
+         CODE POPUP
+    ========================== -->
+
+    <div class="code-overlay" id="codeOverlay">
+
+        <div class="code-box" id="codeBox">
+
+            <h2>
+                One more <span>secret</span> ❤️
+            </h2>
+
+            <p>
+                Enter the 4-digit code to continue...
+            </p>
+
+            <div class="code-inputs">
+
+                <input
+                    type="text"
+                    maxlength="1"
+                    inputmode="numeric"
+                    class="code-input"
+                >
+
+                <input
+                    type="text"
+                    maxlength="1"
+                    inputmode="numeric"
+                    class="code-input"
+                >
+
+                <input
+                    type="text"
+                    maxlength="1"
+                    inputmode="numeric"
+                    class="code-input"
+                >
+
+                <input
+                    type="text"
+                    maxlength="1"
+                    inputmode="numeric"
+                    class="code-input"
+                >
+
+            </div>
+
+            <div class="error" id="errorMessage"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         IMAGE LIGHTBOX
+    ========================== -->
+
+    <div class="lightbox" id="lightbox">
+
+        <div class="close-lightbox" onclick="closeLightbox()">
+            ×
+        </div>
+
+        <img id="lightboxImage" src="" alt="">
+
+    </div>
+
+
+    <script>
+
+        /* =========================
+           CREATE FLOATING HEARTS
+        ========================== */
+
+        const heartsContainer = document.getElementById("hearts");
+
+        const heartSymbols = ["♥", "♡", "❤", "💕"];
+
+        for (let i = 0; i < 35; i++) {
+
+            const heart = document.createElement("div");
+
+            heart.className = "heart";
+
+            heart.innerHTML =
+                heartSymbols[
+                    Math.floor(Math.random() * heartSymbols.length)
+                ];
+
+            heart.style.left =
+                Math.random() * 100 + "%";
+
+            heart.style.fontSize =
+                (12 + Math.random() * 25) + "px";
+
+            heart.style.animationDuration =
+                (7 + Math.random() * 10) + "s";
+
+            heart.style.animationDelay =
+                Math.random() * 8 + "s";
+
+            heartsContainer.appendChild(heart);
+        }
+
+
+        /* =========================
+           IMAGE LIGHTBOX
+        ========================== */
+
+        const images = document.querySelectorAll(".memory img");
+
+        const lightbox =
+            document.getElementById("lightbox");
+
+        const lightboxImage =
+            document.getElementById("lightboxImage");
+
+        images.forEach(image => {
+
+            image.addEventListener("click", () => {
+
+                lightboxImage.src = image.src;
+
+                lightbox.style.display = "flex";
+
+            });
+
+        });
+
+
+        function closeLightbox() {
+
+            lightbox.style.display = "none";
+
+            lightboxImage.src = "";
+
+        }
+
+
+        lightbox.addEventListener("click", function(e) {
+
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+
+        });
+
+
+        /* =========================
+           CODE SYSTEM
+        ========================== */
+
+        const correctCode = "2010";
+
+        const codeOverlay =
+            document.getElementById("codeOverlay");
+
+        const codeBox =
+            document.getElementById("codeBox");
+
+        const errorMessage =
+            document.getElementById("errorMessage");
+
+        const codeInputs =
+            document.querySelectorAll(".code-input");
+
+
+        function openCode() {
+
+            codeOverlay.style.display = "flex";
+
+            codeInputs[0].focus();
+
+        }
+
+
+        /* AUTO MOVE BETWEEN INPUTS */
+
+        codeInputs.forEach((input, index) => {
+
+            input.addEventListener("input", () => {
+
+                input.value =
+                    input.value.replace(/[^0-9]/g, "");
+
+                if (
+                    input.value &&
+                    index < codeInputs.length - 1
+                ) {
+
+                    codeInputs[index + 1].focus();
+
+                }
+
+                checkCode();
+
+            });
+
+
+            /* BACKSPACE */
+
+            input.addEventListener("keydown", (e) => {
+
+                if (
+                    e.key === "Backspace" &&
+                    !input.value &&
+                    index > 0
+                ) {
+
+                    codeInputs[index - 1].focus();
+
+                }
+
+            });
+
+        });
+
+
+        /* =========================
+           CHECK CODE
+        ========================== */
+
+        function checkCode() {
+
+            let enteredCode = "";
+
+            codeInputs.forEach(input => {
+
+                enteredCode += input.value;
+
+            });
+
+
+            if (enteredCode.length !== 4) {
+                return;
+            }
+
+
+            if (enteredCode === correctCode) {
+
+                errorMessage.textContent =
+                    "Correct ❤️";
+
+                setTimeout(() => {
+
+                    window.location.href =
+                        "page3.html";
+
+                }, 700);
+
+            }
+
+            else {
+
+                errorMessage.textContent =
+                    "Wrong code, try again ♡";
+
+                codeBox.classList.remove("shake");
+
+                void codeBox.offsetWidth;
+
+                codeBox.classList.add("shake");
+
+
+                setTimeout(() => {
+
+                    codeInputs.forEach(input => {
+                        input.value = "";
+                    });
+
+                    codeInputs[0].focus();
+
+                }, 500);
+
+            }
+
+        }
+
+    </script>
+
+
+<script>
+(function () {
+    const music = document.getElementById("bgMusic");
+    const KEY = "birthdayMusicTime";
+    if (!music) return;
+    music.volume = 0.35;
+
+    function resumeMusic() {
+        const saved = parseFloat(localStorage.getItem(KEY));
+        const setPosition = () => {
+            if (!Number.isNaN(saved)) {
+                try { music.currentTime = saved; } catch (_) {}
+            }
+        };
+        if (!Number.isNaN(saved)) {
+            if (music.readyState >= 1) setPosition();
+            else music.addEventListener("loadedmetadata", setPosition, { once: true });
+        }
+        music.play().catch(() => {});
+    }
+
+    function save() {
+        if (Number.isFinite(music.currentTime)) localStorage.setItem(KEY, String(music.currentTime));
+    }
+
+    resumeMusic();
+    ["click", "touchstart", "pointerdown", "keydown", "scroll"].forEach(evt => {
+        window.addEventListener(evt, resumeMusic, { once: true, passive: true });
+    });
+    music.addEventListener("timeupdate", save);
+    setInterval(save, 500);
+    window.addEventListener("beforeunload", save);
+    document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") save(); });
+})();
+</script>
+
+</body>
+</html>
